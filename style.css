@@ -9,24 +9,15 @@ body {
 
 
 #gridSquare {
-    /* height: 16px; */
-    /* width: 16px; */
     border: 1px solid black;
 }
 
 
 #paintingContainer {
     display: grid;
-    /* height: 500px;
-    width: 500px; */
     border: 1px solid black;
-    /* grid-template-columns: repeat(16, 16px); */
-    /* column-gap: 5px; */
 }
 
-/* #gridDiv:hover {
-    background-color: black;
-} */
 
 .colored {
     background-color: black;

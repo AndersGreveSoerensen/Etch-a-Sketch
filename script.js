@@ -4,6 +4,7 @@ let gridSlider = document.querySelector("#gridSlider")
 let sliderText = document.querySelector("#sliderText")
 let paintingContainer = document.querySelector("#paintingContainer")
 let resetButton = document.querySelector("#resetButton")
+let rainbowButton = document.querySelector("#rainbowButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 
@@ -30,38 +31,19 @@ gridSlider.addEventListener("change", () => {
     createDivGrid(gridSize)
     gridSquares = document.querySelectorAll("#paintingContainer div")
 
-    gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
-        if (drawState) {
-            square.classList.add("colored")
-        }
-    }))
-    
-    gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
-        square.classList.add("colored")
-    }))
-
+    draw()
+    mousedownDraw()
 })
 
 resetButton.addEventListener("click", () => {
     gridSquares.forEach((square) => {
         square.classList.remove("colored")
+        square.style.backgroundColor = ""
     })
 })
 
-
-
-function createDivGrid(gridSize) {
-    for (let i = 0; i < gridSize * gridSize; i++) {
-        let gridSquare = document.createElement("div")
-        gridSquare.setAttribute("id", "gridSquare")
-        gridSquare.style.width = `${paintingContainerWidth/gridSize}` + "px"
-        gridSquare.style.height = `${paintingContainerHeight/gridSize}` + "px"
-        paintingContainer.appendChild(gridSquare)
-    }
-}
-
-
 let drawState = false
+let rainbowMode = false
 
 window.addEventListener("mousedown", (e) => {
     if (e.button === 0) {
@@ -76,15 +58,73 @@ window.addEventListener("mouseup", (e) => {
     }
 })
 
-gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
-    if (drawState) {
-        square.classList.add("colored")
-    }
-}))
 
-gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
-    square.classList.add("colored")
-}))
+draw()
+mousedownDraw()
+
+rainbowButton.addEventListener("click", () => {
+    if (rainbowMode == false) {
+        rainbowMode = true
+        rainbowButton.style.backgroundColor = "red"
+    }
+    else {
+        rainbowMode = false
+        rainbowButton.style.backgroundColor = ""
+    }
+    console.log(rainbowMode)
+})
+
+function createDivGrid(gridSize) {
+    for (let i = 0; i < gridSize * gridSize; i++) {
+        let gridSquare = document.createElement("div")
+        gridSquare.setAttribute("id", "gridSquare")
+        gridSquare.style.width = `${paintingContainerWidth/gridSize}` + "px"
+        gridSquare.style.height = `${paintingContainerHeight/gridSize}` + "px"
+        paintingContainer.appendChild(gridSquare)
+    }
+}
+
+function draw() {
+    gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
+        if (drawState) {
+            if (rainbowMode) {
+                square.style.backgroundColor = randomColor()
+            }
+            else {
+                square.classList.add("colored")
+            }
+        }
+    }))    
+}
+
+function mousedownDraw() {
+    gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
+        if (rainbowMode) {
+            square.style.backgroundColor = randomColor()
+        }
+        else {
+            square.classList.add("colored")
+        }
+    }))
+}
+
+// gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
+//     if (rainbowMode) {
+//         square.style.backgroundColor = randomColor()
+//     }
+//     else {
+//         square.classList.add("colored")
+//     }
+// }))
+
+function randomColor() {
+    let num1 = Math.floor(Math.random() * 255)
+    let num2 = Math.floor(Math.random() * 255)
+    let num3 = Math.floor(Math.random() * 255)
+    let randomColor = `rgb(${num1}, ${num2}, ${num3})`
+    return randomColor
+}
+
 
 
 
