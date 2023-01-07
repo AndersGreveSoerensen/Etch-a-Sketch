@@ -5,6 +5,8 @@ let sliderText = document.querySelector("#sliderText")
 let paintingContainer = document.querySelector("#paintingContainer")
 let resetButton = document.querySelector("#resetButton")
 let rainbowButton = document.querySelector("#rainbowButton")
+let colorInput = document.querySelector("#colorInput")
+let colorPicker = document.querySelector("#colorPicker")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 
@@ -72,6 +74,12 @@ rainbowButton.addEventListener("click", () => {
     }
 })
 
+let selectedColor = "black"
+colorInput.addEventListener("input", (e) => {
+    colorPicker.style.backgroundColor = `${e.target.value}`
+    selectedColor = `${e.target.value}`
+})
+
 function createDivGrid(gridSize) {
     for (let i = 0; i < gridSize * gridSize; i++) {
         let gridSquare = document.createElement("div")
@@ -89,7 +97,7 @@ function draw() {
                 square.style.backgroundColor = randomColor()
             }
             else {
-                square.style.backgroundColor = "black"
+                square.style.backgroundColor = selectedColor
             }
         }
     }))    
@@ -101,7 +109,7 @@ function mousedownDraw() {
             square.style.backgroundColor = randomColor()
         }
         else {
-            square.style.backgroundColor = "black"
+            square.style.backgroundColor = selectedColor
         }
     }))
 }

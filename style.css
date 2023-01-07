@@ -22,3 +22,15 @@ body {
 .colored {
     background-color: black;
 }
+
+#colorInput {
+    visibility: hidden;
+}
+
+#colorPicker {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: black;
+}
