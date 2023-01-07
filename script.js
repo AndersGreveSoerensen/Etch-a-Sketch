@@ -3,6 +3,7 @@ gridSize = 16
 let gridSlider = document.querySelector("#gridSlider")
 let sliderText = document.querySelector("#sliderText")
 let paintingContainer = document.querySelector("#paintingContainer")
+let resetButton = document.querySelector("#resetButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 
@@ -41,6 +42,11 @@ gridSlider.addEventListener("change", () => {
 
 })
 
+resetButton.addEventListener("click", () => {
+    gridSquares.forEach((square) => {
+        square.classList.remove("colored")
+    })
+})
 
 
 
