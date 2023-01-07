@@ -30,6 +30,11 @@ gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
     }
 }))
 
+gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
+    square.classList.add("colored")
+}))
+
+
 
 
 // function hoverColorChange() {
