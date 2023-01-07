@@ -8,7 +8,7 @@ body {
 }
 
 
-#gridDiv {
+#gridSquare {
     height: 16px;
     width: 16px;
     border: 1px solid black;
@@ -18,5 +18,12 @@ body {
 #paintingContainer {
     display: grid;
     grid-template-columns: repeat(16, 16px);
-    /* grid-template-rows: 16; */
+}
+
+/* #gridDiv:hover {
+    background-color: black;
+} */
+
+.colored {
+    background-color: black;
 }
