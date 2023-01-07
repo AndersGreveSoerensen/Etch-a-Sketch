@@ -37,7 +37,6 @@ gridSlider.addEventListener("change", () => {
 
 resetButton.addEventListener("click", () => {
     gridSquares.forEach((square) => {
-        square.classList.remove("colored")
         square.style.backgroundColor = ""
     })
 })
@@ -71,7 +70,6 @@ rainbowButton.addEventListener("click", () => {
         rainbowMode = false
         rainbowButton.style.backgroundColor = ""
     }
-    console.log(rainbowMode)
 })
 
 function createDivGrid(gridSize) {
@@ -91,7 +89,7 @@ function draw() {
                 square.style.backgroundColor = randomColor()
             }
             else {
-                square.classList.add("colored")
+                square.style.backgroundColor = "black"
             }
         }
     }))    
@@ -103,7 +101,7 @@ function mousedownDraw() {
             square.style.backgroundColor = randomColor()
         }
         else {
-            square.classList.add("colored")
+            square.style.backgroundColor = "black"
         }
     }))
 }
