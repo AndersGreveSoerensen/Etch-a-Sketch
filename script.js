@@ -7,6 +7,7 @@ let resetButton = document.querySelector("#resetButton")
 let rainbowButton = document.querySelector("#rainbowButton")
 let colorInput = document.querySelector("#colorInput")
 let colorPicker = document.querySelector("#colorPicker")
+let eraserButton = document.querySelector("#eraserButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 
@@ -63,16 +64,52 @@ window.addEventListener("mouseup", (e) => {
 draw()
 mousedownDraw()
 
+
+
+let eraserMode = false
+
+eraserButton.addEventListener("click", () => {
+    if (eraserMode == false) {
+        eraserMode = true
+        eraserButton.style.backgroundColor = "green"
+        rainbowMode = false
+    }
+    else {
+        eraserMode = false
+        eraserButton.style.backgroundColor = ""
+    }
+    updateModes()
+})
+
 rainbowButton.addEventListener("click", () => {
     if (rainbowMode == false) {
         rainbowMode = true
         rainbowButton.style.backgroundColor = "red"
+        eraserMode = false
     }
     else {
         rainbowMode = false
         rainbowButton.style.backgroundColor = ""
     }
+    updateModes()
 })
+
+function updateModes() {
+    if (eraserMode) {
+        eraserButton.style.backgroundColor = "green"
+    }
+    else {
+        eraserButton.style.backgroundColor = ""
+    }
+
+    if (rainbowMode) {
+        rainbowButton.style.backgroundColor = "red"
+    }
+    else {
+        rainbowButton.style.backgroundColor = ""
+    }
+}
+
 
 let selectedColor = "black"
 colorInput.addEventListener("input", (e) => {
@@ -96,6 +133,11 @@ function draw() {
             if (rainbowMode) {
                 square.style.backgroundColor = randomColor()
             }
+
+            else if (eraserMode) {
+                square.style.backgroundColor = ""
+            }
+
             else {
                 square.style.backgroundColor = selectedColor
             }
@@ -108,6 +150,11 @@ function mousedownDraw() {
         if (rainbowMode) {
             square.style.backgroundColor = randomColor()
         }
+
+        else if (eraserMode) {
+            square.style.backgroundColor = ""
+        }
+
         else {
             square.style.backgroundColor = selectedColor
         }
