@@ -1,4 +1,4 @@
-gridSize = 16
+gridSize = 32
 
 let gridSlider = document.querySelector("#gridSlider")
 let sliderText = document.querySelector("#sliderText")
@@ -19,7 +19,7 @@ paintingContainer.style.width = `${paintingContainerWidth}` + "px"
 createDivGrid(gridSize)
 let gridSquares = document.querySelectorAll("#paintingContainer div")
 
-sliderText.textContent = "Grid size: 16 x 16"
+sliderText.textContent = `Grid size: ${gridSlider.value} x ${gridSlider.value}`
 gridSlider.addEventListener("input", () => {
     sliderText.textContent = `Grid size: ${gridSlider.value} x ${gridSlider.value}`
 })
