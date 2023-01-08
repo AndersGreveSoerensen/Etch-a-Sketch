@@ -8,6 +8,7 @@ let rainbowButton = document.querySelector("#rainbowButton")
 let colorInput = document.querySelector("#colorInput")
 let colorPicker = document.querySelector("#colorPicker")
 let eraserButton = document.querySelector("#eraserButton")
+let drawButton = document.querySelector("#drawButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 
@@ -45,7 +46,9 @@ resetButton.addEventListener("click", () => {
 })
 
 let drawState = false
+let drawMode = true
 let rainbowMode = false
+let eraserMode = false
 
 window.addEventListener("mousedown", (e) => {
     if (e.button === 0) {
@@ -64,20 +67,32 @@ window.addEventListener("mouseup", (e) => {
 draw()
 mousedownDraw()
 
-
-
-let eraserMode = false
+drawButton.style.backgroundColor = "pink"
+drawButton.addEventListener("click", () => {
+    if (!drawMode) {
+        drawMode = true
+        drawButton.style.backgroundColor = "pink"
+        eraserMode = false
+        rainbowMode = false
+        updateModes()
+    }
+    // else {
+    //     drawMode = false
+    //     drawButton.style.backgroundColor = ""
+    // }
+})
 
 eraserButton.addEventListener("click", () => {
     if (eraserMode == false) {
         eraserMode = true
         eraserButton.style.backgroundColor = "green"
         rainbowMode = false
+        drawMode = false
     }
-    else {
-        eraserMode = false
-        eraserButton.style.backgroundColor = ""
-    }
+    // else {
+    //     eraserMode = false
+    //     eraserButton.style.backgroundColor = ""
+    // }
     updateModes()
 })
 
@@ -86,11 +101,12 @@ rainbowButton.addEventListener("click", () => {
         rainbowMode = true
         rainbowButton.style.backgroundColor = "red"
         eraserMode = false
+        drawMode = false
     }
-    else {
-        rainbowMode = false
-        rainbowButton.style.backgroundColor = ""
-    }
+    // else {
+    //     rainbowMode = false
+    //     rainbowButton.style.backgroundColor = ""
+    // }
     updateModes()
 })
 
@@ -107,6 +123,13 @@ function updateModes() {
     }
     else {
         rainbowButton.style.backgroundColor = ""
+    }
+
+    if (drawMode) {
+        drawButton.style.backgroundColor = "pink"
+    }
+    else {
+        drawButton.style.backgroundColor = ""
     }
 }
 
