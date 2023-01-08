@@ -1,5 +1,3 @@
-gridSize = 32
-
 let gridSlider = document.querySelector("#gridSlider")
 let sliderText = document.querySelector("#sliderText")
 let paintingContainer = document.querySelector("#paintingContainer")
@@ -9,8 +7,11 @@ let colorInput = document.querySelector("#colorInput")
 let colorPicker = document.querySelector("#colorPicker")
 let eraserButton = document.querySelector("#eraserButton")
 let drawButton = document.querySelector("#drawButton")
+let toggleGridButton = document.querySelector("#toggleGridButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
+let gridSize = 32
+gridSlider.value = gridSize
 
 
 paintingContainer.style.gridTemplateColumns = `repeat(${gridSize}, ${paintingContainerHeight/gridSize}px)`
@@ -37,6 +38,7 @@ gridSlider.addEventListener("change", () => {
 
     draw()
     mousedownDraw()
+    updateGrid()
 })
 
 resetButton.addEventListener("click", () => {
@@ -139,6 +141,29 @@ colorInput.addEventListener("input", (e) => {
     colorPicker.style.backgroundColor = `${e.target.value}`
     selectedColor = `${e.target.value}`
 })
+
+let showGrid = true
+toggleGridButton.style.backgroundColor = "red"
+toggleGridButton.addEventListener("click", (e) => {
+    showGrid = !showGrid
+    updateGrid()
+})
+
+function updateGrid() {
+    if (showGrid) {
+        gridSquares.forEach((square) => {
+            square.style.border = "1px solid black"
+        })
+        toggleGridButton.style.backgroundColor = "red"
+    }
+
+    else {
+        gridSquares.forEach((square) => {
+            square.style.border = "none"
+        })
+        toggleGridButton.style.backgroundColor = ""
+    }
+}
 
 function createDivGrid(gridSize) {
     for (let i = 0; i < gridSize * gridSize; i++) {
