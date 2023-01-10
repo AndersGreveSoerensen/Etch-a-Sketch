@@ -6,12 +6,12 @@ let rainbowButton = document.querySelector("#rainbowButton")
 let colorInput = document.querySelector("#colorInput")
 let colorPicker = document.querySelector("#colorPicker")
 let eraserButton = document.querySelector("#eraserButton")
-let drawButton = document.querySelector("#drawButton")
+// let drawButton = document.querySelector("#drawButton")
 let toggleGridButton = document.querySelector("#toggleGridButton")
 let shadingButton = document.querySelector("#shadingButton")
 let lightenButton = document.querySelector("#lightenButton")
-let paintingContainerHeight = 500
-let paintingContainerWidth = 500
+let paintingContainerHeight = 600
+let paintingContainerWidth = 600
 let gridSize = 32
 gridSlider.value = gridSize
 
@@ -45,12 +45,12 @@ gridSlider.addEventListener("change", () => {
 
 resetButton.addEventListener("click", () => {
     gridSquares.forEach((square) => {
-        square.style.backgroundColor = ""
+        square.style.backgroundColor = "rgb(255, 255, 255)"
     })
 })
 
 let drawState = false
-let drawMode = true
+// let drawMode = true
 let rainbowMode = false
 let eraserMode = false
 let shadingMode = false
@@ -73,52 +73,50 @@ window.addEventListener("mouseup", (e) => {
 draw()
 mousedownDraw()
 
-drawButton.style.backgroundColor = "pink"
-drawButton.addEventListener("click", () => {
-    if (!drawMode) {
-        drawMode = true
-        drawButton.style.backgroundColor = "pink"
-        eraserMode = false
-        rainbowMode = false
-        shadingMode = false
-        lightenMode = false
-    }
-    // else {
-        //     drawMode = false
-        //     drawButton.style.backgroundColor = ""
-        // }
-        updateModes()
-})
+// drawButton.style.backgroundColor = "pink"
+// drawButton.addEventListener("click", () => {
+//     if (!drawMode) {
+//         drawMode = true
+//         drawButton.style.backgroundColor = "pink"
+//         eraserMode = false
+//         rainbowMode = false
+//         shadingMode = false
+//         lightenMode = false
+//     }
+//     else {
+//             drawMode = false
+//             // drawButton.style.backgroundColor = ""
+//         }
+//         updateModes()
+// })
 
 eraserButton.addEventListener("click", () => {
     if (eraserMode == false) {
         eraserMode = true
-        eraserButton.style.backgroundColor = "green"
         rainbowMode = false
-        drawMode = false
+        // drawMode = false
         shadingMode = false
         lightenMode = false
     }
-    // else {
-    //     eraserMode = false
-    //     eraserButton.style.backgroundColor = ""
-    // }
+    else {
+        eraserMode = false
+        // eraserButton.style.backgroundColor = ""
+    }
     updateModes()
 })
 
 rainbowButton.addEventListener("click", () => {
     if (rainbowMode == false) {
         rainbowMode = true
-        rainbowButton.style.backgroundColor = "red"
         eraserMode = false
-        drawMode = false
+        // drawMode = false
         shadingMode = false
         lightenMode = false
     }
-    // else {
-    //     rainbowMode = false
-    //     rainbowButton.style.backgroundColor = ""
-    // }
+    else {
+        rainbowMode = false
+        // rainbowButton.style.backgroundColor = ""
+    }
     updateModes()
 })
 
@@ -130,8 +128,8 @@ colorInput.addEventListener("input", (e) => {
     selectedColor = `${e.target.value}`
 })
 
-let showGrid = true
-toggleGridButton.style.backgroundColor = "red"
+let showGrid = false
+updateGrid()
 toggleGridButton.addEventListener("click", (e) => {
     showGrid = !showGrid
     updateGrid()
@@ -143,7 +141,7 @@ shadingButton.addEventListener("click", (e) => {
     if (shadingMode) {
         rainbowMode = false
         eraserMode = false
-        drawMode = false
+        // drawMode = false
         lightenMode = false
     }
     updateModes()
@@ -154,7 +152,7 @@ lightenButton.addEventListener("click", (e) => {
     if(lightenMode) {
         rainbowMode = false
         eraserMode = false
-        drawMode = false
+        // drawMode = false
         shadingMode = false
     }
     updateModes()
@@ -163,37 +161,47 @@ lightenButton.addEventListener("click", (e) => {
 
 function updateModes() {
     if (eraserMode) {
-        eraserButton.style.backgroundColor = "green"
+        eraserButton.style.backgroundColor = "rgb(69, 86, 125)"
+        eraserButton.style.color = "rgb(46, 48, 50)"
     }
     else {
         eraserButton.style.backgroundColor = ""
+        eraserButton.style.color = ""
     }
 
     if (rainbowMode) {
-        rainbowButton.style.backgroundColor = "red"
+        rainbowButton.style.backgroundColor = "rgb(69, 86, 125)"
+        rainbowButton.style.color = "rgb(46, 48, 50)"
     }
     else {
         rainbowButton.style.backgroundColor = ""
+        rainbowButton.style.color = ""
     }
 
-    if (drawMode) {
-        drawButton.style.backgroundColor = "pink"
-    }
-    else {
-        drawButton.style.backgroundColor = ""
-    }
+    // if (drawMode) {
+    //     drawButton.style.backgroundColor = "pink"
+    // }
+    // else {
+    //     drawButton.style.backgroundColor = ""
+    // }
 
     if (shadingMode) {
-        shadingButton.style.backgroundColor = "red"
+        shadingButton.style.backgroundColor = "rgb(69, 86, 125)"
+        shadingButton.style.color = "rgb(46, 48, 50)"
     }
     else {
         shadingButton.style.backgroundColor = ""
+        shadingButton.style.color = ""
     }
 
     if(lightenMode) {
-        lightenButton.style.backgroundColor = "red"
+        lightenButton.style.backgroundColor = "rgb(69, 86, 125)"
+        lightenButton.style.color = "rgb(46, 48, 50)"
     }
-    else {lightenButton.style.backgroundColor = ""}
+    else {
+        lightenButton.style.backgroundColor = ""
+        lightenButton.style.color = ""
+    }
 }
 
 function updateGrid() {
@@ -201,7 +209,8 @@ function updateGrid() {
         gridSquares.forEach((square) => {
             square.style.border = "1px solid black"
         })
-        toggleGridButton.style.backgroundColor = "red"
+        toggleGridButton.style.backgroundColor = "rgb(69, 86, 125)"
+        toggleGridButton.style.color = "rgb(46, 48, 50)"
     }
 
     else {
@@ -209,6 +218,7 @@ function updateGrid() {
             square.style.border = "none"
         })
         toggleGridButton.style.backgroundColor = ""
+        toggleGridButton.style.color = ""
     }
 }
 
@@ -287,7 +297,7 @@ function draw() {
             }
 
             else if (eraserMode) {
-                square.style.backgroundColor = "white"
+                square.style.backgroundColor = "rgb(255, 255, 255)"
             }
 
             else {
@@ -303,14 +313,15 @@ function mousedownDraw() {
             let color = e.target.style.backgroundColor
             let newColor = shadeColor(color, shadeFactor)
             square.style.backgroundColor = newColor
+
+            console.log(color)
+            console.log(newColor)
         }
 
         else if (lightenMode) {
             let color = e.target.style.backgroundColor
             let newColor = tintColor(color, tintFactor)
             square.style.backgroundColor = newColor
-            // console.log(color)
-            // console.log(newColor)
         }
         
         else if (rainbowMode) {
@@ -318,7 +329,7 @@ function mousedownDraw() {
         }
 
         else if (eraserMode) {
-            square.style.backgroundColor = ""
+            square.style.backgroundColor = "rgb(255, 255, 255)"
         }
 
         else {

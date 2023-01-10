@@ -9,18 +9,32 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="paintingContainer"></div>
-    <label for="colorInput" id="colorPicker">
-        <input type="color" id="colorInput">
-    </label>
-    <button id="drawButton">Draw Mode</button>
-    <p id="sliderText"></p>
-    <input type="range", min="1", max="64", id="gridSlider">
-    <button id="resetButton">Reset</button>
-    <button id="rainbowButton">Rainbow Mode</button>
-    <button id="eraserButton">Eraser</button>
-    <button id="toggleGridButton">Toggle grid</button>
-    <button id="shadingButton">Toggle Shading</button>
-    <button id="lightenButton">Toggle Lighten</button>
+    <header id="titleContainer">
+        <h1 id="title">Etch-A-Sketch</h1>
+    </header>
+
+    <main id="mainContainer">
+        
+        <div id="menuContainer">
+            <p id="colorPickerText">Color Selector</p>
+            <label for="colorInput" id="colorPicker">
+                <input type="color" id="colorInput">
+            </label>
+            <button id="rainbowButton">Rainbow Mode</button>
+            <button id="eraserButton">Toggle Eraser</button>
+
+            <button id="shadingButton">Toggle Shading</button>
+            <button id="lightenButton">Toggle Lighten</button>
+
+            <!-- <button id="drawButton">Draw Mode</button> -->
+
+            <p id="sliderText"></p>
+            <input type="range", min="1", max="64", id="gridSlider">
+            <button id="toggleGridButton">Toggle grid</button>
+            <button id="resetButton">Reset</button>
+        </div>
+
+        <div id="paintingContainer"></div>
+    </main>
 </body>
 </html> 

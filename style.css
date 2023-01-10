@@ -1,9 +1,98 @@
+:root {
+    --theme-dark: rgb(46, 48, 50);
+    --theme-even-darker: rgb(28, 30, 31);
+    --theme-blue: rgb(69, 86, 125);
+    --theme-red: rgb(190, 49, 68);
+}
+
+body {
+    background-color: var(--theme-dark);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+#title {
+    font-size: 50px;
+    text-align: center;
+    margin: 50px 0;
+}
+
+#mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 100px;
+    
+}
+
+
+#menuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-even-darker);
+    padding: 25px;
+    border-radius: 5px;
+    color: var(--theme-blue);
+    width: 250px;
+    height: 550px;
+}
+
+#colorPickerText {
+    font-size: 18px;
+}
+
+#sliderText {
+    font-size: 18px;
+}
+
+#menuContainer *{
+    margin: 5px 0;
+}
+
+#menuContainer button {
+    width: 150px;
+    height: 35px;
+    font-size: 16px;
+    background-color: var(--theme-dark);
+    color: var(--theme-blue);
+    border: 2px solid var(--theme-blue);
+    border-radius: 5px;
+    transition: transform 0.1s;
+    /* transform: scale(1.1); */
+}
+
+#menuContainer button, #menuContainer input, #menuContainer label {
+    cursor: pointer;
+}
+
+#menuContainer button:hover {
+    /* height: 40px; */
+    /* width: 155px; */
+    transform: scale(1.1);
+}
+
+#toggleGridButton {
+    margin-bottom: 20px;
+}
+
+#sliderText {
+    margin-top: 20px;
+}
+
+#eraserButton {
+    margin-bottom: 20px;
+}
 
 #gridSquare {
     border: 1px solid black;
