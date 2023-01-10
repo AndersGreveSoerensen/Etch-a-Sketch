@@ -8,6 +8,8 @@ let colorPicker = document.querySelector("#colorPicker")
 let eraserButton = document.querySelector("#eraserButton")
 let drawButton = document.querySelector("#drawButton")
 let toggleGridButton = document.querySelector("#toggleGridButton")
+let shadingButton = document.querySelector("#shadingButton")
+let lightenButton = document.querySelector("#lightenButton")
 let paintingContainerHeight = 500
 let paintingContainerWidth = 500
 let gridSize = 32
@@ -51,6 +53,8 @@ let drawState = false
 let drawMode = true
 let rainbowMode = false
 let eraserMode = false
+let shadingMode = false
+let lightenMode = false
 
 window.addEventListener("mousedown", (e) => {
     if (e.button === 0) {
@@ -76,12 +80,14 @@ drawButton.addEventListener("click", () => {
         drawButton.style.backgroundColor = "pink"
         eraserMode = false
         rainbowMode = false
-        updateModes()
+        shadingMode = false
+        lightenMode = false
     }
     // else {
-    //     drawMode = false
-    //     drawButton.style.backgroundColor = ""
-    // }
+        //     drawMode = false
+        //     drawButton.style.backgroundColor = ""
+        // }
+        updateModes()
 })
 
 eraserButton.addEventListener("click", () => {
@@ -90,6 +96,8 @@ eraserButton.addEventListener("click", () => {
         eraserButton.style.backgroundColor = "green"
         rainbowMode = false
         drawMode = false
+        shadingMode = false
+        lightenMode = false
     }
     // else {
     //     eraserMode = false
@@ -104,6 +112,8 @@ rainbowButton.addEventListener("click", () => {
         rainbowButton.style.backgroundColor = "red"
         eraserMode = false
         drawMode = false
+        shadingMode = false
+        lightenMode = false
     }
     // else {
     //     rainbowMode = false
@@ -111,6 +121,45 @@ rainbowButton.addEventListener("click", () => {
     // }
     updateModes()
 })
+
+
+
+let selectedColor = "rgb(0, 0, 0)"
+colorInput.addEventListener("input", (e) => {
+    colorPicker.style.backgroundColor = `${e.target.value}`
+    selectedColor = `${e.target.value}`
+})
+
+let showGrid = true
+toggleGridButton.style.backgroundColor = "red"
+toggleGridButton.addEventListener("click", (e) => {
+    showGrid = !showGrid
+    updateGrid()
+})
+
+
+shadingButton.addEventListener("click", (e) => {
+    shadingMode = !shadingMode
+    if (shadingMode) {
+        rainbowMode = false
+        eraserMode = false
+        drawMode = false
+        lightenMode = false
+    }
+    updateModes()
+})
+
+lightenButton.addEventListener("click", (e) => {
+    lightenMode = !lightenMode
+    if(lightenMode) {
+        rainbowMode = false
+        eraserMode = false
+        drawMode = false
+        shadingMode = false
+    }
+    updateModes()
+})
+
 
 function updateModes() {
     if (eraserMode) {
@@ -133,21 +182,19 @@ function updateModes() {
     else {
         drawButton.style.backgroundColor = ""
     }
+
+    if (shadingMode) {
+        shadingButton.style.backgroundColor = "red"
+    }
+    else {
+        shadingButton.style.backgroundColor = ""
+    }
+
+    if(lightenMode) {
+        lightenButton.style.backgroundColor = "red"
+    }
+    else {lightenButton.style.backgroundColor = ""}
 }
-
-
-let selectedColor = "black"
-colorInput.addEventListener("input", (e) => {
-    colorPicker.style.backgroundColor = `${e.target.value}`
-    selectedColor = `${e.target.value}`
-})
-
-let showGrid = true
-toggleGridButton.style.backgroundColor = "red"
-toggleGridButton.addEventListener("click", (e) => {
-    showGrid = !showGrid
-    updateGrid()
-})
 
 function updateGrid() {
     if (showGrid) {
@@ -172,18 +219,75 @@ function createDivGrid(gridSize) {
         gridSquare.style.width = `${paintingContainerWidth/gridSize}` + "px"
         gridSquare.style.height = `${paintingContainerHeight/gridSize}` + "px"
         paintingContainer.appendChild(gridSquare)
+        gridSquare.style.backgroundColor = "rgb(255, 255, 255)"
     }
 }
 
+function getColorValues(rgbColor) {
+    let colorsOnly = rgbColor.split("(")[1]
+    colorsOnly = colorsOnly.split(")")[0]
+    colorsOnly = colorsOnly.split(",")
+    let r = colorsOnly[0]
+    let g = colorsOnly[1]
+    let b = colorsOnly[2]
+    return [r, g, b]
+}
+
+function shadeColor(rgbColor, shadeFactor) {
+    let rgbValues = getColorValues(rgbColor)
+    let r = Number(rgbValues[0])
+    let g = Number(rgbValues[1])
+    let b = Number(rgbValues[2])
+
+    let rNew = r * (1 - shadeFactor)
+    let gNew = g * (1 - shadeFactor)
+    let bNew = b * (1 - shadeFactor)
+
+    let newColor = `rgb(${rNew}, ${gNew}, ${bNew})`
+
+    return newColor
+
+}
+
+function tintColor(rgbColor, tintFactor) {
+    let rgbValues = getColorValues(rgbColor)
+    let r = Number(rgbValues[0])
+    let g = Number(rgbValues[1])
+    let b = Number(rgbValues[2])
+
+    let rNew = r + (255 - r) * tintFactor
+    let gNew = g + (255 - g) * tintFactor
+    let bNew = b + (255 - b) * tintFactor
+
+    let newColor = `rgb(${rNew}, ${gNew}, ${bNew})`
+
+    return newColor
+    
+}
+
+shadeFactor = 0.15
+tintFactor = 0.15
 function draw() {
     gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
         if (drawState) {
-            if (rainbowMode) {
+            if (shadingMode) {
+                let color = e.target.style.backgroundColor
+                let newColor = shadeColor(color, shadeFactor)
+                square.style.backgroundColor = newColor
+            }
+
+            else if (lightenMode) {
+                let color = e.target.style.backgroundColor
+                let newColor = tintColor(color, tintFactor)
+                square.style.backgroundColor = newColor
+            }
+            
+            else if (rainbowMode) {
                 square.style.backgroundColor = randomColor()
             }
 
             else if (eraserMode) {
-                square.style.backgroundColor = ""
+                square.style.backgroundColor = "white"
             }
 
             else {
@@ -195,7 +299,21 @@ function draw() {
 
 function mousedownDraw() {
     gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
-        if (rainbowMode) {
+        if (shadingMode) {
+            let color = e.target.style.backgroundColor
+            let newColor = shadeColor(color, shadeFactor)
+            square.style.backgroundColor = newColor
+        }
+
+        else if (lightenMode) {
+            let color = e.target.style.backgroundColor
+            let newColor = tintColor(color, tintFactor)
+            square.style.backgroundColor = newColor
+            // console.log(color)
+            // console.log(newColor)
+        }
+        
+        else if (rainbowMode) {
             square.style.backgroundColor = randomColor()
         }
 
@@ -208,6 +326,7 @@ function mousedownDraw() {
         }
     }))
 }
+
 
 // gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
 //     if (rainbowMode) {
