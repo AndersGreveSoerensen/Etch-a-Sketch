@@ -6,7 +6,6 @@ let rainbowButton = document.querySelector("#rainbowButton")
 let colorInput = document.querySelector("#colorInput")
 let colorPicker = document.querySelector("#colorPicker")
 let eraserButton = document.querySelector("#eraserButton")
-// let drawButton = document.querySelector("#drawButton")
 let toggleGridButton = document.querySelector("#toggleGridButton")
 let shadingButton = document.querySelector("#shadingButton")
 let lightenButton = document.querySelector("#lightenButton")
@@ -50,7 +49,6 @@ resetButton.addEventListener("click", () => {
 })
 
 let drawState = false
-// let drawMode = true
 let rainbowMode = false
 let eraserMode = false
 let shadingMode = false
@@ -73,34 +71,15 @@ window.addEventListener("mouseup", (e) => {
 draw()
 mousedownDraw()
 
-// drawButton.style.backgroundColor = "pink"
-// drawButton.addEventListener("click", () => {
-//     if (!drawMode) {
-//         drawMode = true
-//         drawButton.style.backgroundColor = "pink"
-//         eraserMode = false
-//         rainbowMode = false
-//         shadingMode = false
-//         lightenMode = false
-//     }
-//     else {
-//             drawMode = false
-//             // drawButton.style.backgroundColor = ""
-//         }
-//         updateModes()
-// })
-
 eraserButton.addEventListener("click", () => {
     if (eraserMode == false) {
         eraserMode = true
         rainbowMode = false
-        // drawMode = false
         shadingMode = false
         lightenMode = false
     }
     else {
         eraserMode = false
-        // eraserButton.style.backgroundColor = ""
     }
     updateModes()
 })
@@ -109,13 +88,11 @@ rainbowButton.addEventListener("click", () => {
     if (rainbowMode == false) {
         rainbowMode = true
         eraserMode = false
-        // drawMode = false
         shadingMode = false
         lightenMode = false
     }
     else {
         rainbowMode = false
-        // rainbowButton.style.backgroundColor = ""
     }
     updateModes()
 })
@@ -141,7 +118,6 @@ shadingButton.addEventListener("click", (e) => {
     if (shadingMode) {
         rainbowMode = false
         eraserMode = false
-        // drawMode = false
         lightenMode = false
     }
     updateModes()
@@ -152,7 +128,6 @@ lightenButton.addEventListener("click", (e) => {
     if(lightenMode) {
         rainbowMode = false
         eraserMode = false
-        // drawMode = false
         shadingMode = false
     }
     updateModes()
@@ -178,12 +153,6 @@ function updateModes() {
         rainbowButton.style.color = ""
     }
 
-    // if (drawMode) {
-    //     drawButton.style.backgroundColor = "pink"
-    // }
-    // else {
-    //     drawButton.style.backgroundColor = ""
-    // }
 
     if (shadingMode) {
         shadingButton.style.backgroundColor = "rgb(69, 86, 125)"
@@ -275,8 +244,8 @@ function tintColor(rgbColor, tintFactor) {
     
 }
 
-shadeFactor = 0.15
-tintFactor = 0.15
+let shadeFactor = 0.15
+let tintFactor = 0.15
 function draw() {
     gridSquares.forEach((square) => square.addEventListener("mouseenter", (e) => {
         if (drawState) {
@@ -339,15 +308,6 @@ function mousedownDraw() {
 }
 
 
-// gridSquares.forEach((square) => square.addEventListener("mousedown", (e) => {
-//     if (rainbowMode) {
-//         square.style.backgroundColor = randomColor()
-//     }
-//     else {
-//         square.classList.add("colored")
-//     }
-// }))
-
 function randomColor() {
     let num1 = Math.floor(Math.random() * 255)
     let num2 = Math.floor(Math.random() * 255)
@@ -356,9 +316,3 @@ function randomColor() {
     return randomColor
 }
 
-
-
-
-// function hoverColorChange() {
-
-// }

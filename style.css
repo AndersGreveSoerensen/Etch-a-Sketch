@@ -10,7 +10,6 @@ body {
     color: white;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: center;
 }
 
@@ -69,7 +68,14 @@ body {
     border: 2px solid var(--theme-blue);
     border-radius: 5px;
     transition: transform 0.1s;
-    /* transform: scale(1.1); */
+}
+
+#menuContainer label {
+    transition: transform 0.1s
+}
+
+#menuContainer label:hover {
+    transform: scale(1.1)
 }
 
 #menuContainer button, #menuContainer input, #menuContainer label {
@@ -77,8 +83,6 @@ body {
 }
 
 #menuContainer button:hover {
-    /* height: 40px; */
-    /* width: 155px; */
     transform: scale(1.1);
 }
 
